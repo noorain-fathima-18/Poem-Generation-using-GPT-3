@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <h1>Poet's Palette</h1>
+            <p>
+                <strong>Poem's Palette</strong> is a creative project utilizing the power of GPT-3.5 Turbo to generate personalized poetry. 
+                Using the latest advancements in AI, you can provide a title, specify the emotion you want the poem to convey, 
+                the tone in which it should be presented, and add context to shape the theme or background of the poem.
+            </p>
+            <p>
+                GPT-3.5 Turbo is part of OpenAI's models designed to understand natural language and generate human-like text. 
+                It is ideal for tasks such as text generation, creative writing, and more. 
+                In this app, you will witness its ability to craft beautiful poems that evoke specific feelings and themes, 
+                showing how AI can contribute to the art of storytelling and poetry creation.
+            </p>
+        </nav>
+        
+        <main class="content">
+            <h1>Emotion-driven Poem Generation using GPT-3.5 Turbo</h1>
+            
+            <% if (error) { %>
+                <div class="alert error">
+                    <%= error %>
+                </div>
+            <% } %>
+            
+            <form action="/generate" method="POST">
+                <div class="form-group">
+                    <label for="title">Enter the title of the poem:</label>
+                    <input type="text" id="title" name="title" value="<%= locals.formData ? formData.title : '' %>" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="emotion">Enter the emotion you want the poem to convey:</label>
+                    <input type="text" id="emotion" name="emotion" value="<%= locals.formData ? formData.emotion : '' %>" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tone">Enter the tone in which the poem should be written:</label>
+                    <input type="text" id="tone" name="tone" value="<%= locals.formData ? formData.tone : '' %>" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="context">Enter the context or theme for the poem:</label>
+                    <textarea id="context" name="context" rows="4" required><%= locals.formData ? formData.context : '' %></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Generate Poem</button>
+            </form>
+            
+            <% if (poem) { %>
+                <div class="poem-container">
+                    <h2>Generated Poem</h2>
+                    <div class="poem">
+                        <%= poem.replace(/\n/g, '<br>') %>
+                    </div>
+                </div>
+            <% } %>
+        </main>
+    </div>
+    
+    <script src="/js/script.js"></script>
+</body>
+</html>
